@@ -1,0 +1,316 @@
+# WINAMP 360 v1.21 — Winamp Classic-style Now Playing + charge dashboard
+# Target: Hidizs AP80 Pro Max, portrait 360x640
+
+%wd
+%X(d)
+
+%Fl(2,22-ProFont.fnt)
+%Fl(3,16-Adobe-Helvetica-Bold.fnt)
+%Fl(4,14-Adobe-Helvetica-Bold.fnt)
+%Fl(5,12-Adobe-Helvetica.fnt)
+%Fl(6,27-Adobe-Helvetica-Bold.fnt)
+%xl(n,no_art.bmp,0,0)
+%xl(q,usbc_charge.bmp,0,0)
+%xl(t,transport.bmp,0,0,4)
+%xl(s,seek_slider.bmp,0,0)
+%xl(a,meter_16.bmp,0,0)
+%xl(b,meter_18.bmp,0,0)
+%xl(c,meter_21.bmp,0,0)
+%xl(d,meter_22.bmp,0,0)
+%xl(e,meter_24.bmp,0,0)
+%xl(f,meter_26.bmp,0,0)
+%xl(g,meter_29.bmp,0,0)
+%xl(h,meter_30.bmp,0,0)
+%xl(i,meter_33.bmp,0,0)
+%xl(j,meter_34.bmp,0,0)
+%xl(k,meter_36.bmp,0,0)
+%xl(l,meter_40.bmp,0,0)
+%xl(m,meter_41.bmp,0,0)
+%xl(o,meter_43.bmp,0,0)
+
+# Winamp-blue chassis with restrained metallic header trim
+%V(0,0,360,640,1)%Vf(E2E2E8)%Vb(050509)
+%dr(0,0,360,640,050509)
+%dr(4,4,352,632,39395A)
+%dr(6,6,348,628,1A1A29)
+%dr(7,7,346,626,080810)
+
+# Charger sense + cover-panel swap. Deliberately unlabelled and anchored on the
+# art viewport origin so the art's clear-on-hide lands inside the panel.
+%V(72,170,216,216,1)%Vf(E2E2E8)%Vb(000000)
+%?bp<%Vd(dash)|%Vd(cov)>
+
+# One aligned masthead: time | WINAMP | right-inset battery percentage + icon
+%V(12,8,336,42,1)%Vf(E2E2E8)%Vb(28283F)
+%dr(0,0,-,-,68687D)
+%dr(1,1,334,40,24243B)
+%dr(2,2,332,38,14141E)
+%dr(3,3,330,1,68687D)
+%dr(3,39,330,1,68687D)
+%V(18,21,52,13,5)%Vf(D8D8DF)%Vb(14141E)
+%ac%?cc<%cH:%cM|--:-->
+%V(88,13,184,28,6)%Vf(E4E4EA)%Vb(14141E)
+%acWINAMP
+%V(310,18,24,18,1)%Vf(00FF00)%Vb(050509)
+%dr(0,2,19,12,171724)
+%dr(2,4,15,8,050509)
+%?if(%bl, >=, 75)<%dr(3,5,13,6,00FF00)|%?if(%bl, >=, 50)<%dr(3,5,10,6,00FF00)|%?if(%bl, >=, 25)<%dr(3,5,7,6,E7D42F)|%?if(%bl, >, 0)<%dr(3,5,4,6,E7D42F)|>>>>
+# Bolt keyed on charger-attached, so it stays lit even at 100%.
+%?bp<%dr(9,4,2,3,E7D42F)%dr(7,6,3,3,E7D42F)%dr(9,9,2,3,E7D42F)>
+%dr(0,2,19,1,D8D8DF)
+%dr(0,2,1,13,68687D)
+%dr(0,14,19,1,68687D)
+%dr(19,4,3,7,D8D8DF)
+%V(276,21,31,13,5)%Vf(00FF00)%Vb(14141E)
+%ar%bl%%
+
+# Compact LCD/status window with a clean, separator-free title row
+%V(12,53,336,88,1)%Vf(E2E2E8)%Vb(28283F)
+%dr(0,0,-,-,68687D)
+%dr(1,1,334,86,292941)
+# Interior painted in one piece, then the caption strip laid over it. Any gap
+# between separate rectangles would show the panel base colour as a stray line.
+%dr(2,2,332,84,000000)
+%dr(2,2,332,16,14141E)
+%V(18,55,168,13,5)%Vf(E2E2E8)%Vb(14141E)
+%alNOW PLAYING
+
+%V(19,74,88,27,2)%Vf(00FF00)%Vb(000000)
+%ac%pc
+%V(19,105,88,14,5)%Vf(55FF35)%Vb(000000)
+%ac%?mp<STOP|PLAYING|PAUSED|FFWD|REW|REC|REC PAUSED|FM|FM MUTED>
+
+%V(116,74,224,21,3)%Vf(00FF00)%Vb(000000)
+%al%s%?it<%it|%fn>
+%V(116,94,224,16,4)%Vf(E6E6EA)%Vb(000000)
+%al%?ia<%ia|Unknown Artist>
+%V(116,110,224,14,5)%Vf(BFC0CC)%Vb(000000)
+%al%?id<%id|No album tag>
+%V(116,124,224,13,5)%Vf(E7D42F)%Vb(000000)
+%al%fc / %fb kbps / %fk kHz
+
+# ---- cover panel: art group (hidden while a charger is attached) ----
+%Vl(cov,12,144,336,252,1)%Vf(E2E2E8)%Vb(28283F)
+%dr(0,0,-,-,68687D)
+%dr(1,1,334,250,39395A)
+%dr(2,2,332,248,292941)
+%dr(2,2,332,15,14141E)
+%dr(58,24,220,220,68687D)
+%dr(59,25,218,218,171724)
+%Vl(cov,18,145,324,13,5)%Vf(E2E2E8)%Vb(14141E)
+%alCOVER ART
+# Album art viewport. Viewport coordinates are absolute screen coordinates
+# (viewports are flat siblings in Rockbox's parse tree) while %dr is relative to
+# the viewport it sits in, so the frame above is 58,24 inside the panel but this
+# is the on-screen 72,170 - the frame's interior at 70,168 plus its 2px border.
+# Frame is 220x220: 7 px clearance under the caption strip, 6 px below the art.
+%Vl(cov,72,170,216,216,1)%Vf(E2E2E8)%Vb(000000)
+%Cl(0,0,216,216,c,c)
+%?C<%Cd|%xd(n)>
+
+# Winamp-like stereo bar analyser: live alternating left/right peak columns
+%V(12,399,336,64,1)%Vf(E2E2E8)%Vb(28283F)
+%dr(0,0,-,-,68687D)
+%dr(1,1,334,62,292941)
+%dr(2,2,332,60,000000)
+%dr(2,2,332,13,14141E)
+%dr(14,24,306,1,202033)
+%dr(14,34,306,1,202033)
+%dr(14,44,306,1,202033)
+%dr(14,59,306,1,38385A)
+%V(18,400,190,13,5)%Vf(E2E2E8)%Vb(14141E)
+%alSTEREO ANALYSER
+%V(250,400,90,13,5)%Vf(5F9FE7)%Vb(14141E)
+%arLIVE L/R
+
+# Band 1 — left channel
+%V(39,442,10,16,1)%Vf(00FF00)%Vb(11111B)
+%pL(0,0,10,16,image,a,vertical,notouch)
+%dr(0,0,10,1,E7D42F)
+# Band 2 — right channel
+%V(55,437,10,21,1)%Vf(00FF00)%Vb(11111B)
+%pR(0,0,10,21,image,c,vertical,notouch)
+%dr(0,0,10,1,E7D42F)
+# Band 3 — left channel
+%V(71,428,10,30,1)%Vf(00FF00)%Vb(11111B)
+%pL(0,0,10,30,image,h,vertical,notouch)
+%dr(0,0,10,1,E7D42F)
+# Band 4 — right channel
+%V(87,440,10,18,1)%Vf(00FF00)%Vb(11111B)
+%pR(0,0,10,18,image,b,vertical,notouch)
+%dr(0,0,10,1,E7D42F)
+# Band 5 — left channel
+%V(103,422,10,36,1)%Vf(00FF00)%Vb(11111B)
+%pL(0,0,10,36,image,k,vertical,notouch)
+%dr(0,0,10,1,E7D42F)
+# Band 6 — right channel
+%V(119,429,10,29,1)%Vf(00FF00)%Vb(11111B)
+%pR(0,0,10,29,image,g,vertical,notouch)
+%dr(0,0,10,1,E7D42F)
+# Band 7 — left channel
+%V(135,415,10,43,1)%Vf(00FF00)%Vb(11111B)
+%pL(0,0,10,43,image,o,vertical,notouch)
+%dr(0,0,10,1,E7D42F)
+# Band 8 — right channel
+%V(151,424,10,34,1)%Vf(00FF00)%Vb(11111B)
+%pR(0,0,10,34,image,j,vertical,notouch)
+%dr(0,0,10,1,E7D42F)
+# Band 9 — left channel
+%V(167,434,10,24,1)%Vf(00FF00)%Vb(11111B)
+%pL(0,0,10,24,image,e,vertical,notouch)
+%dr(0,0,10,1,E7D42F)
+# Band 10 — right channel
+%V(183,417,10,41,1)%Vf(00FF00)%Vb(11111B)
+%pR(0,0,10,41,image,m,vertical,notouch)
+%dr(0,0,10,1,E7D42F)
+# Band 11 — left channel
+%V(199,428,10,30,1)%Vf(00FF00)%Vb(11111B)
+%pL(0,0,10,30,image,h,vertical,notouch)
+%dr(0,0,10,1,E7D42F)
+# Band 12 — right channel
+%V(215,440,10,18,1)%Vf(00FF00)%Vb(11111B)
+%pR(0,0,10,18,image,b,vertical,notouch)
+%dr(0,0,10,1,E7D42F)
+# Band 13 — left channel
+%V(231,422,10,36,1)%Vf(00FF00)%Vb(11111B)
+%pL(0,0,10,36,image,k,vertical,notouch)
+%dr(0,0,10,1,E7D42F)
+# Band 14 — right channel
+%V(247,432,10,26,1)%Vf(00FF00)%Vb(11111B)
+%pR(0,0,10,26,image,f,vertical,notouch)
+%dr(0,0,10,1,E7D42F)
+# Band 15 — left channel
+%V(263,442,10,16,1)%Vf(00FF00)%Vb(11111B)
+%pL(0,0,10,16,image,a,vertical,notouch)
+%dr(0,0,10,1,E7D42F)
+# Band 16 — right channel
+%V(279,425,10,33,1)%Vf(00FF00)%Vb(11111B)
+%pR(0,0,10,33,image,i,vertical,notouch)
+%dr(0,0,10,1,E7D42F)
+# Band 17 — left channel
+%V(295,436,10,22,1)%Vf(00FF00)%Vb(11111B)
+%pL(0,0,10,22,image,d,vertical,notouch)
+%dr(0,0,10,1,E7D42F)
+# Band 18 — right channel
+%V(311,418,10,40,1)%Vf(00FF00)%Vb(11111B)
+%pR(0,0,10,40,image,l,vertical,notouch)
+%dr(0,0,10,1,E7D42F)
+
+# Winamp-style red seek track; native fill remains visible beneath the silver thumb
+%V(12,466,336,38,1)%Vf(E2E2E8)%Vb(28283F)
+%dr(0,0,-,-,68687D)
+%dr(1,1,334,36,292941)
+%dr(2,2,332,34,171724)
+%V(20,469,320,13,5)%Vf(E2E2E8)%Vb(171724)
+%al%pc%ac%px%%%ar%pt
+%V(20,485,320,16,1)%Vf(D7443B)%Vb(24243B)
+%pb(0,0,320,14,-,noborder,slider,s,notouch)
+%T(seek,0,0,320,16,progressbar)
+
+# Green volume rail with matching metallic thumb and large touch target
+%V(12,507,336,32,1)%Vf(E2E2E8)%Vb(28283F)
+%dr(0,0,-,-,68687D)
+%dr(1,1,334,30,292941)
+%dr(2,2,332,28,171724)
+%V(20,515,34,14,5)%Vf(E7D42F)%Vb(171724)
+%acVOL
+%V(58,510,238,20,1)%Vf(00FF00)%Vb(24243B)
+%pv(0,3,238,14,-,noborder,slider,s,notouch)
+%T(volume,0,0,238,20,volume)
+%V(302,515,38,14,5)%Vf(E2E2E8)%Vb(171724)
+%ar%pv
+
+# Three centered playback keys: previous, dynamic play/pause, next
+%V(12,542,336,58,1)%Vf(E2E2E8)%Vb(28283F)
+%dr(0,0,-,-,68687D)
+%dr(1,1,334,56,292941)
+%dr(2,2,332,54,171724)
+# Previous key
+%dr(32,5,64,48,D1D2D8)
+%dr(33,6,62,46,696A72)
+%dr(34,7,60,44,17161B)
+%dr(35,8,58,42,BFC1C7)
+%dr(36,9,56,1,F0F1F3)
+# Play/pause key - same metal finish as the previous and next keys
+%dr(136,5,64,48,D1D2D8)
+%dr(137,6,62,46,696A72)
+%dr(138,7,60,44,17161B)
+%dr(139,8,58,42,BFC1C7)
+%dr(140,9,56,1,F0F1F3)
+# Next key
+%dr(240,5,64,48,D1D2D8)
+%dr(241,6,62,46,696A72)
+%dr(242,7,60,44,17161B)
+%dr(243,8,58,42,BFC1C7)
+%dr(244,9,56,1,F0F1F3)
+%T(prev,32,5,64,48,wps_prev)
+%T(play,136,5,64,48,play)
+%T(next,240,5,64,48,wps_next)
+
+%V(62,559,28,24,1)%Vf(17161B)%Vb(BFC1C7)
+%xd(t,1)
+%V(166,559,28,24,1)%Vf(17161B)%Vb(BFC1C7)
+%?mp<%xd(t,2)|%xd(t,3)|%xd(t,2)|%xd(t,3)|%xd(t,3)|%xd(t,2)|%xd(t,2)|%xd(t,3)|%xd(t,3)>
+%V(270,559,28,24,1)%Vf(17161B)%Vb(BFC1C7)
+%xd(t,4)
+
+# Direct menu/navigation keys
+%V(12,603,336,32,1)%Vf(E2E2E8)%Vb(28283F)
+%dr(0,0,-,-,68687D)
+%dr(1,1,334,30,292941)
+%dr(2,2,332,28,171724)
+%dr(6,3,100,25,79798E)
+%dr(7,4,98,23,454149)
+%dr(8,5,96,21,29262D)
+%dr(118,3,100,25,79798E)
+%dr(119,4,98,23,454149)
+%dr(120,5,96,21,29262D)
+%dr(230,3,100,25,79798E)
+%dr(231,4,98,23,454149)
+%dr(232,5,96,21,29262D)
+%T(browse,6,3,100,25,browse)
+%T(queue,118,3,100,25,playlist)
+%T(menu,230,3,100,25,menu)
+%V(20,612,96,14,5)%Vf(E2E2E8)%Vb(29262D)
+%acBROWSE
+%V(132,612,96,14,5)%Vf(E2E2E8)%Vb(29262D)
+%acQUEUE
+%V(244,612,96,14,5)%Vf(E2E2E8)%Vb(29262D)
+%acMENU
+
+# ---- cover panel: charge dashboard group (shown while a charger is attached) ----
+%Vl(dash,12,144,336,252,1)%Vf(E2E2E8)%Vb(28283F)
+%dr(0,0,-,-,68687D)
+%dr(1,1,334,250,39395A)
+%dr(2,2,332,248,050509)
+%dr(3,19,330,230,0A0A12)
+%dr(2,2,332,15,14141E)
+# Icon plate. The icon bmp carries a real alpha channel, so no box surrounds it.
+%Vl(dash,30,172,96,132,1)%Vf(E2E2E8)%Vb(000000)
+%xd(q)
+%Vl(dash,18,146,200,13,5)%Vf(E7D42F)%Vb(14141E)
+%alCHARGING
+%Vl(dash,214,146,122,13,5)%Vf(00FF00)%Vb(14141E)
+%arEXTERNAL POWER
+%Vl(dash,142,172,194,13,5)%Vf(BFC0CC)%Vb(000000)
+%alBATTERY LEVEL
+%Vl(dash,142,188,194,40,2)%Vf(00FF00)%Vb(000000)
+%al%bl%%
+%Vl(dash,142,236,194,13,5)%Vf(BFC0CC)%Vb(000000)
+%acSTATE
+%Vl(dash,142,252,194,16,4)%Vf(00FF00)%Vb(000000)
+%ac%?bc<CHARGING|CHARGED>
+%Vl(dash,142,280,194,13,5)%Vf(BFC0CC)%Vb(000000)
+%acPACK VOLTAGE
+%Vl(dash,142,296,194,16,4)%Vf(E6E6EA)%Vb(000000)
+%ac%bv V
+# disconnect warning banner
+%Vl(dash,26,330,308,60,1)%Vf(E2E2E8)%Vb(14141E)
+%dr(0,0,-,-,E7D42F)
+%dr(1,1,306,58,2A2410)
+%Vl(dash,32,334,296,16,4)%Vf(E7D42F)%Vb(2A2410)
+%acDO NOT DISCONNECT
+%Vl(dash,32,352,296,14,5)%Vf(E6E6EA)%Vb(2A2410)
+%acUnplug only when charging...
+%Vl(dash,32,366,296,14,5)%Vf(E6E6EA)%Vb(2A2410)
+%ac...is finished or the player is off

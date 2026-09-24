@@ -1,0 +1,68 @@
+# WINAMP 360 v1.21 — menu skin for Hidizs AP80 Pro Max
+# A custom SBS is enabled in the CFG; %wd hides the stock status bar while
+# this skin supplies the Winamp header, navy list surface, and track footer.
+
+%wd
+%X(d)
+%Fl(2,27-Adobe-Helvetica-Bold.fnt)
+%Fl(4,12-Adobe-Helvetica.fnt)
+%Fl(5,14-Adobe-Helvetica-Bold.fnt)
+
+%V(0,0,360,640,1)%Vf(E2E2E8)%Vb(050509)
+%dr(0,0,360,640,050509)
+%dr(4,4,352,632,39395A)
+%dr(6,6,348,628,1A1A29)
+%dr(7,7,346,626,292941)
+
+# Winamp masthead: time left; percentage then icon, inset to match the clock text.
+%V(12,10,336,54,1)%Vf(E2E2E8)%Vb(28283F)
+%dr(0,0,-,-,68687D)
+%dr(1,1,334,52,24243B)
+%dr(2,2,332,50,14141E)
+%dr(3,3,330,1,68687D)
+%dr(3,51,330,1,68687D)
+%V(18,22,50,13,4)%Vf(D8D8DF)%Vb(14141E)
+%ac%?cc<%cH:%cM|--:-->
+%V(88,14,184,29,2)%Vf(E4E4EA)%Vb(14141E)
+%acWINAMP
+
+# Dynamic battery outline and charge fill.
+%V(310,19,24,18,1)%Vf(00FF00)%Vb(050509)
+%dr(0,2,19,12,171724)
+%dr(2,4,15,8,050509)
+%?if(%bl, >=, 75)<%dr(3,5,13,6,00FF00)|%?if(%bl, >=, 50)<%dr(3,5,10,6,00FF00)|%?if(%bl, >=, 25)<%dr(3,5,7,6,E7D42F)|%?if(%bl, >, 0)<%dr(3,5,4,6,E7D42F)|>>>>
+# Bolt stays lit while the charger is attached, including at 100%.
+%?bp<%dr(9,4,2,3,E7D42F)%dr(7,6,3,3,E7D42F)%dr(9,9,2,3,E7D42F)>
+%dr(0,2,19,1,D8D8DF)
+%dr(0,2,1,13,68687D)
+%dr(0,14,19,1,68687D)
+%dr(19,4,3,7,D8D8DF)
+%V(276,22,31,13,4)%Vf(00FF00)%Vb(14141E)
+%ar%bl%%
+
+# The root's firmware title is handled here, not left as a fake first menu row.
+# Submenus retain their own dynamic title; the home screen reads MAIN MENU.
+%V(64,45,232,13,4)%Vf(9C9AA0)%Vb(14141E)
+%ac%?if(%cs, =, 1)<MAIN MENU|%Lt>
+
+# Native Rockbox list items; 27 px text, generous touch rows, and reserved footer space.
+%VI(menu)
+%Vi(menu,12,70,336,496,1)%Vf(00FF00)%Vb(292941)
+
+# Compact Now Playing footer: live track title, artist, and green play/pause mark.
+%V(12,574,336,60,1)%Vf(E2E2E8)%Vb(28283F)
+%dr(0,0,-,-,68687D)
+%dr(1,1,334,58,39395A)
+%dr(2,2,332,56,292941)
+%V(23,597,20,20,1)%Vf(00FF00)%Vb(292941)
+# Draw the icon inline so it renders reliably in the SBS: pause while playing, play otherwise.
+%?if(%mp, =, 1)<%dr(5,4,4,12,00FF00)%dr(12,4,4,12,00FF00)|%dr(5,4,2,2,00FF00)%dr(5,6,4,2,00FF00)%dr(5,8,6,2,00FF00)%dr(5,10,8,2,00FF00)%dr(5,12,6,2,00FF00)%dr(5,14,4,2,00FF00)%dr(5,16,2,2,00FF00)>
+%V(54,579,282,13,4)%Vf(9C9AA0)%Vb(292941)
+%al%?bp<CHARGING|NOW PLAYING>
+# Track title. This is the only viewport on this slot: an empty viewport drawn
+# over the same rectangle would clear the title on every refresh, which is why
+# only the artist line used to be visible here.
+%V(54,592,282,18,5)%Vf(00FF00)%Vb(292941)
+%al%s%?it<%it|Nothing playing>
+%V(54,611,282,16,4)%Vf(E2E2E8)%Vb(292941)
+%al%?bp<Unplug only when finished|%?ia<%ia|Unknown artist>>
